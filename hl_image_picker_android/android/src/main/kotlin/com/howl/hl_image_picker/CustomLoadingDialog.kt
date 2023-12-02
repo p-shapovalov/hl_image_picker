@@ -7,7 +7,7 @@ import android.view.Gravity
 import android.view.ViewGroup
 import android.widget.TextView
 
-class CustomLoadingDialog(context: Context,  private val message: String?) : Dialog(context, R.style.Picture_Theme_AlertDialog) {
+class CustomLoadingDialog(context: Context,  private val message: String?) : Dialog(context) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,7 +24,6 @@ class CustomLoadingDialog(context: Context,  private val message: String?) : Dia
         params.width = ViewGroup.LayoutParams.WRAP_CONTENT
         params.height = ViewGroup.LayoutParams.WRAP_CONTENT
         params.gravity = Gravity.CENTER
-        window!!.setWindowAnimations(R.style.PictureThemeDialogWindowStyle)
         window!!.attributes = params
     }
 }
