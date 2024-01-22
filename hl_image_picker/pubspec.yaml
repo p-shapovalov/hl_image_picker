@@ -18,7 +18,7 @@ dependencies:
     git:
       url: git@github.com:p-shapovalov/hl_image_picker.git
       path: hl_image_picker_android
-      ref: a4a540a772a186b3e029b7314e0d029bc793df53
+      ref: 3c2f3ec09abd98db52b08f06c5b0af5f163a69f3
 
 dev_dependencies:
   flutter_test:
