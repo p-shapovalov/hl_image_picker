@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:hl_image_picker_android/hl_image_picker_android.dart';
 import 'package:hl_image_picker_android_example/widgets/aspect_ratio_select.dart';
@@ -64,6 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
           maxSelectedAssets: _count,
           usedCameraButton: _usedCameraButton,
           numberOfColumn: _numberOfColumn,
+          compressFormat: Platform.isAndroid ? CompressFormat.png : null,
           isGif: true,
         ),
         cropOptions: HLCropOptions(
