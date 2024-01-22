@@ -58,7 +58,6 @@ class HLImagePickerPlugin : FlutterPlugin, MethodCallHandler, ActivityAware, Plu
     private lateinit var channel: MethodChannel
     private var currentActivity: Activity? = null
     private lateinit var applicationContext: Context
-    private val fileCacheUtils = FileCacheUtils()
 
     companion object {
         const val CROPPER_RESULT_CODE = 301
@@ -393,7 +392,7 @@ class HLImagePickerPlugin : FlutterPlugin, MethodCallHandler, ActivityAware, Plu
             item["width"] = media.width
             item["height"] = media.height
             if (media.isCompressed) {
-                item["path"] = fileCacheUtils.getPathFromUri(applicationContext, Uri.fromFile(File(media.compressPath))) ?: media.compressPath
+                item["path"] = media.compressPath
             } else {
                 item["path"] = media.realPath
             }
@@ -519,9 +518,10 @@ class HLImagePickerPlugin : FlutterPlugin, MethodCallHandler, ActivityAware, Plu
     }
 
     private fun getCompressFileEngine(compressQuality: Double?, compressFormat: String?, maxWidth: Int?, maxHeight: Int?): ImageFileCompressEngine? {
-        if(compressQuality == null && compressFormat == null && maxWidth == null && maxHeight == null) {
-            return null
-        }
+//        if(compressQuality == null && compressFormat == null && maxWidth == null && maxHeight == null) {
+//            return null
+//        }
+
         return ImageFileCompressEngine(compressQuality, compressFormat, maxWidth ?: 0, maxHeight ?: 0)
     }
 

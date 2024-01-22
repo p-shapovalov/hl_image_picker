@@ -19,6 +19,7 @@ class ImageFileCompressEngine(
     private val maxWidth: Int,
     private val maxHeight: Int
 ) : CompressFileEngine {
+    private val fileCacheUtils = FileCacheUtils()
 
     override fun onStartCompress(
         context: Context,
@@ -42,36 +43,36 @@ class ImageFileCompressEngine(
                 }
 
                 context.contentResolver.openInputStream(uri).use { imageStream ->
-                    val randomId = UUID.randomUUID().toString().substring(0, 10)
-                    val fileName: String
-                    val imageDirectory = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-                    if (imageDirectory?.exists() == false) {
-                        imageDirectory.mkdirs()
-                    }
-                    var compressFormat = Bitmap.CompressFormat.JPEG
-                    if (format == "png") {
-                        fileName = "hl_image_picker_$randomId.png"
-                        compressFormat = Bitmap.CompressFormat.PNG
-                    } else {
-                        fileName = "hl_image_picker_$randomId.jpg"
-                    }
-                    val originalOrientation = getOrientation(uri, context)
-                    var bitmap = BitmapFactory.decodeStream(imageStream)
-                    bitmap = if (needToSwapDimension(originalOrientation)) {
-                        Bitmap.createScaledBitmap(bitmap, height, width, true)
-                    } else {
-                        Bitmap.createScaledBitmap(bitmap, width, height, true)
-                    }
-
-                    val file = File(imageDirectory, fileName)
-
-                    context.contentResolver.openOutputStream(Uri.fromFile(file)).use { os ->
-                        val compressQuality = ((quality ?: 0.9) * 100).toInt()
-                        bitmap.compress(compressFormat, compressQuality, os)
-                    }
-
-                    setOrientation(file, originalOrientation)
-                    call.onCallback(uri.toString(), file.absolutePath)
+//                    val randomId = UUID.randomUUID().toString().substring(0, 10)
+//                    val fileName: String
+//                    val imageDirectory = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+//                    if (imageDirectory?.exists() == false) {
+//                        imageDirectory.mkdirs()
+//                    }
+//                    var compressFormat = Bitmap.CompressFormat.JPEG
+//                    if (format == "png") {
+//                        fileName = "hl_image_picker_$randomId.png"
+//                        compressFormat = Bitmap.CompressFormat.PNG
+//                    } else {
+//                        fileName = "hl_image_picker_$randomId.jpg"
+//                    }
+//                    val originalOrientation = getOrientation(uri, context)
+//                    var bitmap = BitmapFactory.decodeStream(imageStream)
+//                    bitmap = if (needToSwapDimension(originalOrientation)) {
+//                        Bitmap.createScaledBitmap(bitmap, height, width, true)
+//                    } else {
+//                        Bitmap.createScaledBitmap(bitmap, width, height, true)
+//                    }
+//
+//                    val file = File(imageDirectory, fileName)
+//
+//                    context.contentResolver.openOutputStream(Uri.fromFile(file)).use { os ->
+//                        val compressQuality = ((quality ?: 0.9) * 100).toInt()
+//                        bitmap.compress(compressFormat, compressQuality, os)
+//                    }
+//
+//                    setOrientation(file, originalOrientation)
+                    call.onCallback(uri.toString(), fileCacheUtils.getPathFromUri(context, uri) ?: uri.toString())
                 }
             } catch (e: Exception) {
                 call.onCallback(uri.toString(), null)
