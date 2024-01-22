@@ -14,7 +14,11 @@ dependencies:
     sdk: flutter
   hl_image_picker_platform_interface: ^1.2.3
   hl_image_picker_ios: ^1.2.8
-  hl_image_picker_android: ^1.2.7
+  hl_image_picker_android: 
+    git:
+      url: git@github.com:p-shapovalov/hl_image_picker.git
+      path: hl_image_picker_android
+      ref: a4a540a772a186b3e029b7314e0d029bc793df53
 
 dev_dependencies:
   flutter_test:
