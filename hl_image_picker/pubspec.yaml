@@ -17,7 +17,7 @@ dependencies:
   hl_image_picker_android: 
     git:
       url: git@github.com:p-shapovalov/hl_image_picker.git
-      ref: 7cb201736fca7f7470e301fd77589da05f1a813e
+      ref: 0d2611561234a0b2be665119e2cfab09a25ee095
       path: hl_image_picker_android
 
 dev_dependencies:
